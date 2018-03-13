@@ -1,14 +1,36 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      IP Remote
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+    <div class="row" >
+        <div class="col" >
+    <button (click)="goLeft()" ion-button color="danger" icon-start large>
+      <ion-icon name='arrow-back'></ion-icon>
+      
+    </button>
+  </div>
+  <div class="col" >
+    <button (click)="goBackward()" ion-button color="danger" icon-only large>
+      <ion-icon name='arrow-down'></ion-icon>
+
+    </button>
+  </div>
+  <div class="col" >
+    <button (click)="goForward()" ion-button color="danger" icon-only large>
+      <ion-icon name='arrow-up'></ion-icon>
+      
+    </button>
+  </div>
+    <div class="col" >
+    <button (click)="goRight()" ion-button color="danger" icon-end large>
+      
+      <ion-icon name='arrow-forward'></ion-icon>
+    </button>
+  </div>
+  </div>
 </ion-content>
