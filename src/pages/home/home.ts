@@ -17,29 +17,10 @@ url = 'http://192.168.1.27/gpio/';
 
   }
   
-  goLeft() {
-    
-    return this.http.get(this.url+"L").
+  sendReq(input: String) {
+    let req = input;
+    return this.http.get(this.url+req).
     subscribe(result => this.data = result
     )};
-    
-    
-    goRight() {
-      
-      return this.http.get(this.url+"R").
-      subscribe(result => this.data = result
-      )}
-
-      goForward() {
-        
-        return this.http.get(this.url+"F").
-        subscribe(result => this.data = result
-        )}
-
-        goBackward() {
-          
-          return this.http.get(this.url+"B").
-          subscribe(result => this.data = result
-          )}
 }
 
