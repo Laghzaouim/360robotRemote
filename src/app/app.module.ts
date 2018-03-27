@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPage } from '../pages/login/login';
+import { RobotProvider } from '../providers/robot/robot';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginPage } from '../pages/login/login';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RobotProvider
   ]
 })
 export class AppModule {}

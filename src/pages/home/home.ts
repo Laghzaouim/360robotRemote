@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {HttpClient} from '@angular/common/http'
+import { NavController, Loading, AlertController, LoadingController, NavParams } from 'ionic-angular';
+import { RobotProvider, IResponse } from '../../providers/robot/robot';
+
 
 @Component({
   selector: 'page-home',
@@ -8,19 +9,57 @@ import {HttpClient} from '@angular/common/http'
 })
 export class HomePage {
 
-data: any;
-error: any
-url = 'http://192.168.1.27/gpio/';
 
-  
-  constructor(public navCtrl: NavController, public http: HttpClient) {
+data: IResponse;
+loading: Loading;
+
+status: String
+ 
+  constructor(public navCtrl: NavController, public provider: RobotProvider, public navParams: NavParams, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
 
   }
-  
+
   sendReq(input: String) {
     let req = input;
-    return this.http.get(this.url+req).
-    subscribe(result => this.data = result
-    )};
+     
+     this.provider.getData(req).subscribe(result => {
+       this.data = result
+       if(this.data.status == "ok"){
+         console.log(this.data.status); 
+       }else if  (this.data.status == "error"){
+        this.showError("Wrong request");
+       }
+       else{
+        //this.showError("Somthing is not working correctly")
+        this.showLoading();
+       }
+    },error => {
+      this.showError("Please check your Robot");
+     // console.log(error);
+    })
+  };
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+ 
+  showError(text) {
+    //this.loading.dismiss();
+ 
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+      
 }
+
+
 

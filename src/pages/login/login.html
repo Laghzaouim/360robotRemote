@@ -22,19 +22,19 @@
 
     <ion-list>
         <ion-item>
-          <ion-label fixed>IP address</ion-label>
-          <ion-input type="text" value="" ></ion-input>
+          <ion-label  fixed>IP address</ion-label>
+          <ion-input #in1 type="text" value="" ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label fixed>Password</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input #in2 type="password"></ion-input>
         </ion-item>
       </ion-list>
           <div class="row" >
               <div class="col" >
           </div>
           <div  class="col">
-              <button ion-button color="danger" round large>Login</button>
+              <button  (touchstart)="login(in1.value, in2.value)" (touchend)="sendReq('S')"  ion-button color="danger" round large>Login</button>
           </div>
           <div  class="col">
           </div>
