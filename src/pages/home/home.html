@@ -9,7 +9,7 @@
     <div class="row" >
         <div class="col"  ></div>
         <div class="col-centered"  >
-            <button (touchstart)="sendReq('F')" (touchend)="sendReq('S')" ion-button color="danger" icon-only large>
+            <button (touchstart)="sendMessage('F')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
               <ion-icon name='arrow-up'></ion-icon>
             </button>
           </div>
@@ -17,14 +17,14 @@
     </div>
     <div class="row" >
         <div class="col-centered" >
-    <button (touchstart)="sendReq('L')"  (touchend)="sendReq('S')" ion-button color="danger" icon-start large>
+    <button (touchstart)="sendMessage('L')"  (touchend)="sendMessage('S')" ion-button color="danger" icon-start large>
       <ion-icon name='arrow-back'></ion-icon>
     </button>
   </div>
   <div class="col"  ></div>
   <div class="col-centered" >
     
-    <button (touchstart)="sendReq('R')" (touchend)="sendReq('S')" ion-button color="danger" icon-end large>
+    <button (touchstart)="sendMessage('R')" (touchend)="sendMessage('S')" ion-button color="danger" icon-end large>
       <ion-icon name='arrow-forward'></ion-icon>
     </button>
   </div>
@@ -33,7 +33,7 @@
   <div class="row" >
       <div class="col"  ></div>
       <div class="col-centered" >
-        <button (touchstart)="sendReq('B')" (touchend)="sendReq('S')" ion-button color="danger" icon-only large>
+        <button (touchstart)="sendMessage('B')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
           <ion-icon name='arrow-down'></ion-icon>
         </button>
         
@@ -42,7 +42,7 @@
   </div>
   <div class="row" >
   <ion-item>
-    <ion-range min="0" max="4" step="1" snaps="true" pin="true" (ionChange)="sendReq($event.value)" (ionBlur)="sendReq('S')" color="danger">
+    <ion-range min="0" max="4" step="1" snaps="true" pin="true" (ionChange)="sliderEventToString($event.value)" (ionBlur)="sendMessage('S')" color="danger">
       <ion-icon range-left small color="danger" name="speedometer"></ion-icon>
       <ion-icon range-right color="danger" name="speedometer"></ion-icon>
     </ion-range>

@@ -18,7 +18,7 @@ loading: Loading;
 status: String
  
   constructor(public navCtrl: NavController, public provider: RobotProvider, public navParams: NavParams, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
-    this.client = new Paho.MQTT.Client('broker.hivemq.com', 8000, 'qwerty12345rgdgfr65564dgf');
+    this.client = new Paho.MQTT.Client('broker.hivemq.com', 8000, 'qwegdfgrty12345rgdgfr65564dgf');
     
     this.client.connect({onSuccess: this.onConnected.bind(this)});
     this.onMessage();
@@ -29,11 +29,16 @@ status: String
   
     console.log("Connected");
     this.client.subscribe("outTopicMoIoT");
-    this.sendReq('1');
+    this.sendMessage('1');
     //debugger
   }
 
-  public sendReq(message: string) {
+  public sliderEventToString(event: number){
+    let message:string = String(event)
+    this.sendMessage(message)
+  }
+
+  public sendMessage(message: string) {
     //debugger
     let packet = new Paho.MQTT.Message(message);
     packet.destinationName = "inTopicMoIoT";
