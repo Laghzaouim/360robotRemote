@@ -33,9 +33,6 @@ status: String
         //this.showError("Somthing is not working correctly")
         this.showLoading();
        }
-    },error => {
-      this.showError("Please check your Robot");
-     // console.log(error);
     })
   };
 
