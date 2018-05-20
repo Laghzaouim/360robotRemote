@@ -6,7 +6,12 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div class="battetyState">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  <div> <span class="dot" [style.background-color]="stateServerColor"></span> Server: {{mqttState}}</div>
+  <div> <span class="dot" [style.background-color]="stateRobotColor"></span> 360 Robot: {{robotState}} </div>
+  <div class="Status">
     <ion-icon class="battery" name="md-battery-dead"></ion-icon>
     <div class="progress-outer" >
         <div class="progress-inner" [style.width]="batteryState + '%'">

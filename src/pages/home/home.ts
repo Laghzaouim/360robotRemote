@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { Paho } from 'ng2-mqtt/mqttws31';
+import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -14,9 +15,18 @@ export class HomePage implements OnInit {
   topicRobotState = "360robot/robot/state";
   topicMotorDrive = "360robot/motors/drive";
 
-  batteryState
+  batteryState;
+  mqttState;
+  robotState;
+
+  isConnected;
+
+  stateServerColor
+  stateRobotColor
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+    // this.robotState == "Disconnected";
   }
 
   ngOnInit(): void {
@@ -25,12 +35,36 @@ export class HomePage implements OnInit {
     this.client.connect({ onSuccess: this.onConnected.bind(this) });
     this.onMessage();
     this.onConnectionLost();
+
+    // setInterval(() => {
+    // this.checkRobotStatus();
+    // }, 7000)
+
+  }
+
+  checkRobotStatus() {
+    this.robotState = "Disconected"
   }
 
   onConnected() {
     console.log("Connected");
+    this.mqttState = "Connected"
+    this.stateServerColor = "#33cc33"
     this.client.subscribe(this.topicBatteryState);
     this.client.subscribe(this.topicRobotState);
+    this.isConnected = true
+  }
+
+  doRefresh(refresher) {
+    if (!this.isConnected) {
+      this.client.connect({ onSuccess: this.onConnected.bind(this) });
+    }
+    console.log(this.isConnected)
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 1000);
+
   }
 
   public sliderEventToString(event: number) {
@@ -50,30 +84,34 @@ export class HomePage implements OnInit {
 
       if (message.destinationName == this.topicBatteryState) {
         console.log('Battery state: ' + message.payloadString);
-        switch (message.payloadString){
+        switch (message.payloadString) {
           case '0':
-          this.batteryState = 0;
-          break
+            this.batteryState = 0;
+            break
           case '1':
-          this.batteryState = 20;
-          break
+            this.batteryState = 20;
+            break
           case '2':
-          this.batteryState = 40;
-          break
+            this.batteryState = 40;
+            break
           case '3':
-          this.batteryState = 60;
-          break
+            this.batteryState = 60;
+            break
           case '4':
-          this.batteryState = 80;
-          break
+            this.batteryState = 80;
+            break
           case '5':
-          this.batteryState = 100;
-          break
-
+            this.batteryState = 100;
+            break
         }
 
-      }else if(message.destinationName == this.topicRobotState){
+      } else if (message.destinationName == this.topicRobotState) {
         console.log('Robot state: ' + message.payloadString);
+        if (message.payloadString == "hello") {
+          this.robotState = "Connected"
+          this.stateRobotColor = "#33cc33"
+        }
+
       }
 
       //message.
@@ -85,8 +123,11 @@ export class HomePage implements OnInit {
     this.client.onConnectionLost = (responseObject: Object) => {
       console.log('Connection lost : ' + JSON.stringify(responseObject));
       this.showError("Unable to connect to the Internet")
-      //this.onReconnection()
+      this.mqttState = "Disconected"
+      this.stateServerColor = "#ff0000"
+      this.isConnected = false
     };
+
   }
 
   onReconnection() {

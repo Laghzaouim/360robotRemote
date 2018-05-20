@@ -8,7 +8,7 @@ page-home {
         margin-right: 2%;
         
     }
-    .battetyState{
+    .Status{
         display: flex;
         margin-bottom: 10px;
     }
@@ -17,28 +17,33 @@ page-home {
         margin-top: 20px;
     }
 
-    
-    
- 
-        .progress-outer {
-            width: 40%;
+    .dot {
+        height: 10px;
+        width: 10px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+    .progress-outer {
+        width: 40%;
             
-            padding: 3px;
-            text-align: center;
-            background-color: #f4f4f4;
-            border: 1px solid #dcdcdc;
-            color: #fff;
-            border-radius: 20px;
-        }
+        padding: 3px;
+        text-align: center;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
+        color: #fff;
+        border-radius: 20px;
+    }
      
-        .progress-inner {
-            min-width: 15%;
-            white-space: nowrap;
-            overflow: hidden;
-            padding: 5px;
-            border-radius: 20px;
-            background-color: map-get($colors, primary);
-        }
+    .progress-inner {
+        min-width: 15%;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
+        border-radius: 20px;
+        background-color: map-get($colors, primary);
+    }
      
     
 }
