@@ -6,6 +6,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <div class="battetyState">
+    <ion-icon class="battery" name="md-battery-dead"></ion-icon>
+    <div class="progress-outer" >
+        <div class="progress-inner" [style.width]="batteryState + '%'">
+            {{batteryState}}%
+        </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col"></div>
     <div class="col-centered">
@@ -50,33 +58,33 @@
     </ion-item>
   </div>
   <div class="camera">
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-centered">
-      <button (touchstart)="sendMessage('U')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
-        <ion-icon name='arrow-up'></ion-icon>
-      </button>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-centered">
+        <button (touchstart)="sendMessage('U')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+          <ion-icon name='arrow-up'></ion-icon>
+        </button>
+      </div>
+      <div class="col"></div>
     </div>
-    <div class="col"></div>
-  </div>
 
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-centered">
-      <ion-icon class="camaraIcon" ios="ios-camera" md="md-camera" full></ion-icon>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-centered">
+        <ion-icon class="camaraIcon" ios="ios-camera" md="md-camera" full></ion-icon>
 
+      </div>
+      <div class="col"></div>
     </div>
-    <div class="col"></div>
-  </div>
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-centered">
-      <button (touchstart)="sendMessage('D')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
-        <ion-icon name='arrow-down'></ion-icon>
-      </button>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-centered">
+        <button (touchstart)="sendMessage('D')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+          <ion-icon name='arrow-down'></ion-icon>
+        </button>
 
+      </div>
+      <div class="col"></div>
     </div>
-    <div class="col"></div>
-  </div>
   </div>
 </ion-content>

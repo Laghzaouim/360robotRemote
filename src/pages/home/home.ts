@@ -13,7 +13,8 @@ export class HomePage implements OnInit {
   topicBatteryState = "360robot/battery/state";
   topicRobotState = "360robot/robot/state";
   topicMotorDrive = "360robot/motors/drive";
-  status: String
+
+  batteryState
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
   }
@@ -49,6 +50,28 @@ export class HomePage implements OnInit {
 
       if (message.destinationName == this.topicBatteryState) {
         console.log('Battery state: ' + message.payloadString);
+        switch (message.payloadString){
+          case '0':
+          this.batteryState = 0;
+          break
+          case '1':
+          this.batteryState = 20;
+          break
+          case '2':
+          this.batteryState = 40;
+          break
+          case '3':
+          this.batteryState = 60;
+          break
+          case '4':
+          this.batteryState = 80;
+          break
+          case '5':
+          this.batteryState = 100;
+          break
+
+        }
+
       }else if(message.destinationName == this.topicRobotState){
         console.log('Robot state: ' + message.payloadString);
       }
