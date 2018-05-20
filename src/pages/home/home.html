@@ -1,52 +1,82 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      IP Remote
+      360° Robot remote
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <div class="row" >
-        <div class="col"  ></div>
-        <div class="col-centered"  >
-            <button (touchstart)="sendMessage('F')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
-              <ion-icon name='arrow-up'></ion-icon>
-            </button>
-          </div>
-          <div class="col"  ></div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-centered">
+      <button (touchstart)="sendMessage('F')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+        <ion-icon name='arrow-up'></ion-icon>
+      </button>
     </div>
-    <div class="row" >
-        <div class="col-centered" >
-    <button (touchstart)="sendMessage('L')"  (touchend)="sendMessage('S')" ion-button color="danger" icon-start large>
-      <ion-icon name='arrow-back'></ion-icon>
-    </button>
+    <div class="col"></div>
   </div>
-  <div class="col"  ></div>
-  <div class="col-centered" >
-    
-    <button (touchstart)="sendMessage('R')" (touchend)="sendMessage('S')" ion-button color="danger" icon-end large>
-      <ion-icon name='arrow-forward'></ion-icon>
-    </button>
-  </div>
-  
-  </div>
-  <div class="row" >
-      <div class="col"  ></div>
-      <div class="col-centered" >
-        <button (touchstart)="sendMessage('B')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
-          <ion-icon name='arrow-down'></ion-icon>
-        </button>
-        
+  <div class="row">
+    <div class="col-centered">
+      <button (touchstart)="sendMessage('L')" (touchend)="sendMessage('S')" ion-button color="danger" icon-start large>
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
     </div>
-    <div class="col"  ></div>
-  </div>
-  <div class="row" >
-  <ion-item>
-    <ion-range min="0" max="4" step="1" snaps="true" pin="true" (ionChange)="sliderEventToString($event.value)" (ionBlur)="sendMessage('S')" color="danger">
-      <ion-icon range-left small color="danger" name="speedometer"></ion-icon>
-      <ion-icon range-right color="danger" name="speedometer"></ion-icon>
-    </ion-range>
-  </ion-item>
-</div>
-</ion-content>
+    <div class="col"></div>
+    <div class="col-centered">
 
+      <button (touchstart)="sendMessage('R')" (touchend)="sendMessage('S')" ion-button color="danger" icon-end large>
+        <ion-icon name='arrow-forward'></ion-icon>
+      </button>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-centered">
+      <button (touchstart)="sendMessage('B')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+        <ion-icon name='arrow-down'></ion-icon>
+      </button>
+
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <ion-item>
+      <ion-range min="0" max="4" step="1" snaps="true" pin="true" (ionChange)="sliderEventToString($event.value)" (ionBlur)="sendMessage('S')"
+        color="danger">
+        <ion-icon range-left small color="danger" name="speedometer"></ion-icon>
+        <ion-icon range-right color="danger" name="speedometer"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </div>
+  <div class="camera">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-centered">
+      <button (touchstart)="sendMessage('U')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+        <ion-icon name='arrow-up'></ion-icon>
+      </button>
+    </div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-centered">
+      <ion-icon class="camaraIcon" ios="ios-camera" md="md-camera" full></ion-icon>
+
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-centered">
+      <button (touchstart)="sendMessage('D')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+        <ion-icon name='arrow-down'></ion-icon>
+      </button>
+
+    </div>
+    <div class="col"></div>
+  </div>
+  </div>
+</ion-content>

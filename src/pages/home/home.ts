@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, 
-  //Loading, 
-  AlertController, 
-  //LoadingController, 
-  NavParams } from 'ionic-angular';
-//import { RobotProvider, IResponse } from '../../providers/robot/robot';
-import {Paho} from 'ng2-mqtt/mqttws31';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { Paho } from 'ng2-mqtt/mqttws31';
 
 
 @Component({
@@ -15,46 +10,50 @@ import {Paho} from 'ng2-mqtt/mqttws31';
 export class HomePage implements OnInit {
 
   client;
-  
-  //data: IResponse;
-  //loading: Loading;
-  
+  topicBatteryState = "360robot/battery/state";
+  topicRobotState = "360robot/robot/state";
+  topicMotorDrive = "360robot/motors/drive";
   status: String
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
   }
-  
+
   ngOnInit(): void {
     this.client = new Paho.MQTT.Client('broker.hivemq.com', 8000, 'qwegdfgrty12345rgdgfr65564dgf');
-    
-    this.client.connect({onSuccess: this.onConnected.bind(this)});
+
+    this.client.connect({ onSuccess: this.onConnected.bind(this) });
     this.onMessage();
     this.onConnectionLost();
   }
-  
+
   onConnected() {
-  
     console.log("Connected");
-    this.client.subscribe("outTopicMoIoT");
-    this.sendMessage('start360robot');
-    //debugger
+    this.client.subscribe(this.topicBatteryState);
+    this.client.subscribe(this.topicRobotState);
   }
 
-  public sliderEventToString(event: number){
-    let message:string = String(event)
+  public sliderEventToString(event: number) {
+    let message: string = String(event)
     this.sendMessage(message)
   }
 
   public sendMessage(message: string) {
     //debugger
     let packet = new Paho.MQTT.Message(message);
-    packet.destinationName = "inTopicMoIoT";
+    packet.destinationName = this.topicMotorDrive;
     this.client.send(packet);
   }
 
   onMessage() {
     this.client.onMessageArrived = (message: Paho.MQTT.Message) => {
-      console.log('Message arrived : ' + message.payloadString);
+
+      if (message.destinationName == this.topicBatteryState) {
+        console.log('Battery state: ' + message.payloadString);
+      }else if(message.destinationName == this.topicRobotState){
+        console.log('Robot state: ' + message.payloadString);
+      }
+
+      //message.
     };
   }
 
@@ -63,17 +62,17 @@ export class HomePage implements OnInit {
     this.client.onConnectionLost = (responseObject: Object) => {
       console.log('Connection lost : ' + JSON.stringify(responseObject));
       this.showError("Unable to connect to the Internet")
-      this.onReconnection()
+      //this.onReconnection()
     };
   }
 
-  onReconnection(){
-    this.client.connect({onSuccess: this.onConnected.bind(this)});
+  onReconnection() {
+    this.client.connect({ onSuccess: this.onConnected.bind(this) });
   }
 
   showError(text) {
     //this.loading.dismiss();
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -84,7 +83,7 @@ export class HomePage implements OnInit {
 
   // sendReq(input: String) {
   //   let req = input;
-     
+
   //    this.provider.getData(req).subscribe(result => {
   //      this.data = result
   //      if(this.data.status == "ok"){
@@ -106,9 +105,7 @@ export class HomePage implements OnInit {
   //   });
   //   this.loading.present();
   // }
- 
 
-      
 }
 
 
