@@ -6,23 +6,39 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-  <div> <span class="dot" [style.background-color]="stateServerColor"></span> Server: {{mqttState}}</div>
-  <div> <span class="dot" [style.background-color]="stateRobotColor"></span> 360 Robot: {{robotState}} </div>
-  <div class="Status">
-    <ion-icon class="battery" name="md-battery-dead"></ion-icon>
-    <div class="progress-outer" >
-        <div class="progress-inner" [style.width]="batteryState + '%'">
-            {{batteryState}}%
-        </div>
-    </div>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="statusContainer">
+
+  <div class="statusConnection">
+    <div>
+      <span class="dot" [style.background-color]="stateServerColor"></span> Server</div>
+    <div>
+      <span class="dot" [style.background-color]="stateRobotColor"></span> 360° Robot</div>
+
   </div>
+
+  <div class="StatusBattery">
+    <div class="progress-outer">
+      <div class="progress-inner" [style.width]="batteryState + '%'" [style.background-color]="stateBatteryColor">
+        {{batteryState}}%
+      </div>
+    </div>
+    <ion-icon class="battery" name="md-battery-full" [style.color]="stateBatteryColor"></ion-icon>
+  </div>
+
+
+</div>
+
+  
+
   <div class="row">
     <div class="col"></div>
     <div class="col-centered">
-      <button (touchstart)="sendMessage('F')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+      <button class="buttonDrive" (touchstart)="sendMessage('F')" (touchend)="sendMessage('S')" ion-button color="danger"  large>
         <ion-icon name='arrow-up'></ion-icon>
       </button>
     </div>
@@ -30,14 +46,14 @@
   </div>
   <div class="row">
     <div class="col-centered">
-      <button (touchstart)="sendMessage('L')" (touchend)="sendMessage('S')" ion-button color="danger" icon-start large>
+      <button class="buttonDrive" (touchstart)="sendMessage('L')" (touchend)="sendMessage('S')" ion-button color="danger" icon-start large>
         <ion-icon name='arrow-back'></ion-icon>
       </button>
     </div>
     <div class="col"></div>
     <div class="col-centered">
 
-      <button (touchstart)="sendMessage('R')" (touchend)="sendMessage('S')" ion-button color="danger" icon-end large>
+      <button class="buttonDrive" (touchstart)="sendMessage('R')" (touchend)="sendMessage('S')" ion-button color="danger" icon-end large>
         <ion-icon name='arrow-forward'></ion-icon>
       </button>
     </div>
@@ -46,7 +62,7 @@
   <div class="row">
     <div class="col"></div>
     <div class="col-centered">
-      <button (touchstart)="sendMessage('B')" (touchend)="sendMessage('S')" ion-button color="danger" icon-only large>
+      <button class="buttonDrive" (touchstart)="sendMessage('B')" (touchend)="sendMessage('S')" ion-button color="danger"  large>
         <ion-icon name='arrow-down'></ion-icon>
       </button>
 

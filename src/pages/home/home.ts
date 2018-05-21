@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { Paho } from 'ng2-mqtt/mqttws31';
-import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -23,6 +22,13 @@ export class HomePage implements OnInit {
 
   stateServerColor
   stateRobotColor
+
+  stateBatteryColor
+
+  colorGreen = "#33cc33"
+  colorRed="#ff0000"
+  colorYellow= "#e6e600"
+  colorBlue="#488AFF"
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
@@ -48,8 +54,8 @@ export class HomePage implements OnInit {
 
   onConnected() {
     console.log("Connected");
-    this.mqttState = "Connected"
-    this.stateServerColor = "#33cc33"
+    //this.mqttState = "Connected"
+    this.stateServerColor = this.colorGreen
     this.client.subscribe(this.topicBatteryState);
     this.client.subscribe(this.topicRobotState);
     this.isConnected = true
@@ -60,6 +66,7 @@ export class HomePage implements OnInit {
       this.client.connect({ onSuccess: this.onConnected.bind(this) });
     }
     console.log(this.isConnected)
+    this.stateRobotColor = this.colorRed
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
@@ -87,29 +94,34 @@ export class HomePage implements OnInit {
         switch (message.payloadString) {
           case '0':
             this.batteryState = 0;
+            this.stateBatteryColor = this.colorRed
             break
           case '1':
             this.batteryState = 20;
+            this.stateBatteryColor = this.colorYellow
             break
           case '2':
             this.batteryState = 40;
+            this.stateBatteryColor = this.colorGreen
             break
           case '3':
             this.batteryState = 60;
+            this.stateBatteryColor = this.colorGreen
             break
           case '4':
             this.batteryState = 80;
+            this.stateBatteryColor = this.colorGreen
             break
           case '5':
             this.batteryState = 100;
+            this.stateBatteryColor = this.colorGreen
             break
         }
 
       } else if (message.destinationName == this.topicRobotState) {
         console.log('Robot state: ' + message.payloadString);
         if (message.payloadString == "hello") {
-          this.robotState = "Connected"
-          this.stateRobotColor = "#33cc33"
+          this.stateRobotColor = this.colorGreen
         }
 
       }
@@ -123,8 +135,7 @@ export class HomePage implements OnInit {
     this.client.onConnectionLost = (responseObject: Object) => {
       console.log('Connection lost : ' + JSON.stringify(responseObject));
       this.showError("Unable to connect to the Internet")
-      this.mqttState = "Disconected"
-      this.stateServerColor = "#ff0000"
+      this.stateServerColor = this.colorRed
       this.isConnected = false
     };
 
